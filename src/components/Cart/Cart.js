@@ -1,15 +1,21 @@
 import CartItem from './CartItem';
 import './Cart.css';
+import {useSelector} from 'react-redux';
+import produceList from '../../mockData/produce.json';
+import {useDispatch} from 'react-redux'
+import { emptyCart } from '../../store/cart';
 
 function Cart() {
-  const cart = {};
-  const produce = {};
+  const cart = useSelector(state => state.cart);
+  const produce = produceList;
+
+  const dispatch = useDispatch();
 
   const cartItems = Object.values(cart)
     .map(item => {
       return {
         ...item,
-        ...produce[item.id]
+        ...produce[item.id - 1]
       };
     });
 
@@ -25,6 +31,7 @@ function Cart() {
       "Purchased the following:\n" +
       `${cartItems.map(item => `${item.count} of ${item.name}`).join('\n')}`
     );
+    dispatch(emptyCart())
   }
 
   return (

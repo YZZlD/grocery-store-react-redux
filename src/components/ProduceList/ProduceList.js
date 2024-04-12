@@ -7,6 +7,8 @@ function ProduceList() {
 
   const produceArr = Object.values(produce);
 
+  console.log(produceArr);
+
   return (
     <>
       <h2>All produce</h2>
