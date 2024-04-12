@@ -3,10 +3,12 @@ import Cart from './components/Cart';
 import ProduceList from './components/ProduceList';
 import {useDispatch} from 'react-redux';
 import { populateProduce } from './store/produce';
+import { checkoutVisible, checkoutNotVisible } from './store/checkout';
+import { useSelector } from 'react-redux';
 
 function App() {
-  const [showCart, setShowCart] = useState(false);
 
+  const visible = useSelector(state => state.checkout["visible"]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,20 +19,20 @@ function App() {
     <>
       <nav>
         <h1>Grocery Store</h1>
-        <button className="checkout-button" onClick={() => setShowCart(true)}>
+        <button className="checkout-button" onClick={() => dispatch(checkoutVisible())}>
           <i className="fas fa-shopping-bag" />
           Checkout
         </button>
       </nav>
-      <main style={showCart ? { marginRight: '300px' } : {}} >
+      <main style={visible ? { marginRight: '300px' } : {}} >
         <ProduceList />
       </main>
       <div
         className="sidebar"
-        style={showCart ? { transform: 'translateX(-100%)' } : {}}
+        style={visible ? { transform: 'translateX(-100%)' } : {}}
       >
         <div className="sidebar-header">
-          <button className="arrow-button" onClick={() => setShowCart(false)}>
+          <button className="arrow-button" onClick={() => dispatch(checkoutNotVisible())}>
             <i className="fas fa-arrow-right"></i>
           </button>
         </div>

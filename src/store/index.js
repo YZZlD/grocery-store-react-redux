@@ -1,10 +1,12 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import produceReducer from './produce.js';
 import cartReducer from './cart.js';
+import checkoutReducer from './checkout.js';
 
 const rootReducer = combineReducers({
     produce: produceReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    checkout: checkoutReducer
 });
 
 let enhancer;
